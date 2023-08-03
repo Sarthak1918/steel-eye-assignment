@@ -1,6 +1,6 @@
 import styles from "./ListRowCell.module.css";
 
-const ListRowCell = ({ children }) => {
+const ListRowCell = ({ children}) => {
   return <td className={styles.cell}>{children}</td>;
 };
 
