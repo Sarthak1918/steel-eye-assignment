@@ -6,14 +6,16 @@ import ListHeaderCell from "./ListHeaderCell";
 
 import styles from "./List.module.css";
 
-const List = ({ rows, timestampsArray,currency }) => {
-  const newRows = rows.map((row) => {
+const List = ({ rows, timestampsArray,currency,searchedItems,setSelectedOrderDetails,setSelectedOrderTimeStamps }) => {
+  const newRows = searchedItems.map((row) => {
     let stampItem = timestampsArray.find((item) => {
       return row['&id'] === item['&id']
     })
-    row.orderSubmitted = stampItem.timestamps.orderSubmitted;
+    row.timeStamps = stampItem.timestamps;
     return row;
   })
+
+
   return (
     <table className={styles.container}>
       <thead>
@@ -27,12 +29,15 @@ const List = ({ rows, timestampsArray,currency }) => {
       </thead>
       <tbody>
         {
-          newRows.map((row) => (
-            <ListRow>
+          newRows.map((row,key) => (
+            <ListRow onClick={()=>{
+              setSelectedOrderDetails(row.executionDetails)
+              setSelectedOrderTimeStamps(row.timeStamps)
+            }}>
               <ListRowCell>{row["&id"]}</ListRowCell>
               <ListRowCell>{row.executionDetails.buySellIndicator}</ListRowCell>
               <ListRowCell>{row.executionDetails.orderStatus}</ListRowCell>
-              <ListRowCell>{row.orderSubmitted}</ListRowCell>
+              <ListRowCell>{row.timeStamps.orderSubmitted}</ListRowCell>
               <ListRowCell>{row.bestExecutionData.orderVolume[currency]}</ListRowCell>
             </ListRow>
           ))
