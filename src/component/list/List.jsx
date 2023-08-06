@@ -29,8 +29,8 @@ const List = ({ rows, timestampsArray,currency,searchedItems,setSelectedOrderDet
       </thead>
       <tbody>
         {
-          newRows.map((row,key) => (
-            <ListRow onClick={()=>{
+          newRows.map((row,index) => (
+            <ListRow key={index} onClick={()=>{
               setSelectedOrderDetails(row.executionDetails)
               setSelectedOrderTimeStamps(row.timeStamps)
             }}>
